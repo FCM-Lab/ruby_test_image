@@ -1,4 +1,4 @@
-FROM ruby:2.4.5
+FROM ruby:2.3.7
 MAINTAINER Guillermo Guerrero 'guillermo.guerrero@fr.fcm.travel'
 
 RUN cp /usr/share/zoneinfo/Europe/Madrid /etc/localtime
