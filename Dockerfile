@@ -1,4 +1,4 @@
-FROM ruby:2.4.5
+FROM ruby:2.4.1
 MAINTAINER Guillermo Guerrero 'guillermo.guerrero@fr.fcm.travel'
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
