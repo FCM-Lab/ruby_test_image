@@ -1,7 +1,12 @@
 FROM ruby:2.3.1
 MAINTAINER Guillermo Guerrero 'guillermo.guerrero@fr.fcm.travel'
 
-RUN apt-get update && apt-get install wget
+# jessie archived
+RUN echo "deb http://archive.debian.org/debian/ jessie contrib main non-free" > /etc/apt/sources.list
+
+RUN apt-get update && apt-get install -y wget python-pip less groff
+RUN pip install awscli==1.11.18
+
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 
 # 14.04 repo
