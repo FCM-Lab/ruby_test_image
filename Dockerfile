@@ -1,4 +1,4 @@
-FROM ruby:2.5.3
+FROM ruby:2.6.5
 MAINTAINER Guillermo Guerrero 'guillermo.guerrero@fr.fcm.travel'
 
 ENV PHANTOM_JS=phantomjs-2.1.1-linux-x86_64
