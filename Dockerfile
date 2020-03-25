@@ -19,3 +19,13 @@ RUN mv $PHANTOM_JS /usr/local/share
 RUN ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# install chrome
+RUN apt-get update -y && \
+  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+  dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
+
+# install chromedriver and place it in the path
+RUN wget https://chromedriver.storage.googleapis.com/2.38/chromedriver_linux64.zip && \
+  unzip chromedriver_linux64.zip && \
+  mv chromedriver /usr/local/bin/
