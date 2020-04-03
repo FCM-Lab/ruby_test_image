@@ -5,7 +5,7 @@ ENV OPENSSL_CONF=/etc/ssl
 ENV PHANTOM_JS=phantomjs-2.1.1-linux-x86_64
 
 RUN apt-get update && apt-get install -y wget python-pip less groff
-RUN pip install awscli==1.11.18
+RUN pip install awscli==1.18.35
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
