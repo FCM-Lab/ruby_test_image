@@ -1,4 +1,4 @@
-FROM ruby:2.5.7
+FROM ruby:2.6.6
 MAINTAINER Guillermo Guerrero 'guillermo.guerrero@fr.fcm.travel'
 
 ENV OPENSSL_CONF=/etc/ssl
