@@ -23,12 +23,12 @@ RUN ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
 
 # install chromium
 RUN apt-get update -y && \
-  wget http://security.debian.org/debian-security/pool/updates/main/c/chromium/chromium_90.0.4430.85-1~deb10u1_amd64.deb && \
-  dpkg -i chromium_90.0.4430.85-1~deb10u1_amd64.deb; apt-get -fy install
+  wget http://security.debian.org/debian-security/pool/updates/main/c/chromium/chromedriver_73.0.3683.75-1~deb9u1_amd64.deb && \
+  dpkg -i chromedriver_73.0.3683.75-1~deb9u1_amd64.deb; apt-get -fy install
 RUN cp /usr/bin/chromium /usr/bin/chrome
 
-RUN wget http://security.debian.org/debian-security/pool/updates/main/c/chromium/chromium-driver_90.0.4430.85-1~deb10u1_amd64.deb && \
-    dpkg -i chromium-driver_90.0.4430.85-1~deb10u1_amd64.deb; apt-get -fy install
+RUN wget http://security.debian.org/debian-security/pool/updates/main/c/chromium/chromium-driver_73.0.3683.75-1~deb9u1_amd64.deb && \
+    dpkg -i chromium-driver_73.0.3683.75-1~deb9u1_amd64.deb; apt-get -fy install
 RUN mv /usr/bin/chromedriver /usr/local/bin/chromedriver
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
