@@ -7,7 +7,9 @@ RUN apt-get update && apt-get install -y wget python-pip less groff
 RUN pip install awscli==1.11.18
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
-RUN apt-get install -y ca-certificates wget
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
 RUN apt-get update -qq && apt-get install -y build-essential default-libmysqlclient-dev libsnappy-dev libpq-dev cron libicu-dev git yarn nodejs postgresql-client
 
 RUN wget https://github.com/Medium/phantomjs/releases/download/v2.1.1/$PHANTOM_JS.tar.bz2
