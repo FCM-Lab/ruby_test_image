@@ -7,7 +7,7 @@ ENV PHANTOM_JS=phantomjs-2.1.1-linux-x86_64
 RUN apt-get update && apt-get install -y wget python-pip less groff
 RUN pip install awscli==1.18.35
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
