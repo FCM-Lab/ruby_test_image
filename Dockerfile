@@ -1,10 +1,9 @@
-FROM ruby:3.0.0
+FROM ruby:3.0.4
 MAINTAINER Guillermo Guerrero 'guillermo.guerrero@fr.fcm.travel'
 
 ENV OPENSSL_CONF=/etc/ssl
 
-RUN apt-get update && apt-get install -y wget python-pip less groff gnupg
-RUN pip install awscli==1.18.35
+RUN apt-get update && apt-get install -y wget less groff gnupg
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN wget --quiet -O - /tmp/pubkey.gpg  https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
