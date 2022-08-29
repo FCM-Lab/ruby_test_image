@@ -1,5 +1,5 @@
-FROM ruby:2.6.6
-MAINTAINER Guillermo Guerrero 'guillermo.guerrero@fr.fcm.travel'
+FROM ruby:2.7.5
+MAINTAINER Maxime Mercy 'maxime.mercy@fr.fcm.travel'
 
 ENV OPENSSL_CONF=/etc/ssl
 ENV PHANTOM_JS=phantomjs-2.1.1-linux-x86_64
