@@ -1,4 +1,4 @@
-FROM ruby:3.0.1
+FROM ruby:3.0.0
 MAINTAINER Alexey Kapitula 'alexey.kapitula@fr.fcm.travel'
 
 RUN apt-get update && apt-get install -y wget python-pip less groff
