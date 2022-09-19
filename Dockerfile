@@ -4,7 +4,7 @@ MAINTAINER Alexey Kapitula 'alexey.kapitula@fr.fcm.travel'
 RUN apt-get update && apt-get install -y wget python3-pip less groff
 RUN pip install awscli==1.18.35
 
-RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
