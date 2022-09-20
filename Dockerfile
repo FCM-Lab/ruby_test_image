@@ -1,4 +1,4 @@
-FROM ruby:3.0.4
+FROM ruby:3.0.4-buster
 MAINTAINER Maxime Mercy 'maxime.mercy@fr.fcm.travel'
 
 RUN apt-get update && apt-get install -y wget python3-pip less groff
