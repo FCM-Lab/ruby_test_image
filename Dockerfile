@@ -1,5 +1,5 @@
 FROM ruby:3.0.4
-MAINTAINER Alexey Kapitula 'alexey.kapitula@fr.fcm.travel'
+MAINTAINER Maxime Mercy 'maxime.mercy@fr.fcm.travel'
 
 RUN apt-get update && apt-get install -y wget python3-pip less groff
 RUN pip install awscli==1.18.35
