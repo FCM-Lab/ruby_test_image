@@ -1,7 +1,7 @@
 FROM ruby:3.0.4-buster
 MAINTAINER Maxime Mercy 'maxime.mercy@fr.fcm.travel'
 
-RUN apt-get update && apt-get install -y wget python3-pip less groff
+RUN apt-get update && apt-get install -y wget python-pip less groff
 RUN pip install awscli==1.18.35
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
