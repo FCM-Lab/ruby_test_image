@@ -3,7 +3,8 @@ FROM ruby:3.1.2
 ENV OPENSSL_CONF=/etc/ssl
 ENV PHANTOM_JS=phantomjs-2.1.1-linux-x86_64
 
-RUN apt-get update && apt-get install -y wget python-pip less groff
+RUN apt-get update -y
+RUN apt-get install -y wget python3 python3-pip less groff
 RUN pip install awscli==1.18.35
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
