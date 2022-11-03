@@ -3,18 +3,10 @@ FROM ruby:3.1.2
 ENV OPENSSL_CONF=/etc/ssl
 ENV PHANTOM_JS=phantomjs-2.1.1-linux-x86_64
 
-RUN apt-get update -y
-RUN apt-get install -y wget python3 python3-pip less groff
+RUN apt-get update && apt-get install -y wget python-pip less groff
 RUN pip install awscli==1.18.35
 
-# Install node
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list
-
-
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list
 
@@ -36,16 +28,3 @@ RUN apt-get install chromium-driver -y
 RUN mv /usr/bin/chromedriver /usr/local/bin/chromedriver
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-ENV APP_HOME="/ruby-app" \
-    BUNDLE_JOBS=20 \
-    BUNDLE_PATH=vendor/bundle \
-    LANG="C.UTF-8"
-
-RUN mkdir $APP_HOME
-WORKDIR $APP_HOME
-VOLUME $APP_HOME/log
-
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
