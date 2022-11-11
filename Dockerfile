@@ -4,22 +4,26 @@ ENV OPENSSL_CONF=/etc/ssl
 ENV PHANTOM_JS=phantomjs-2.1.1-linux-x86_64
 
 RUN apt-get update -y
-RUN apt-get install -y wget python3 python3-pip less groff
+RUN apt-get install -y wget python3 python3-pip less groff \
+  gnupg2 wget ca-certificates lsb-release software-properties-common
 RUN pip install awscli==1.18.35
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor > yarnkey.gpg
+RUN install -o root -g root -m 644 yarnkey.gpg /etc/apt/trusted.gpg.d/
+RUN rm yarnkey.gpg
+
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # Install node
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get install -y nodejs
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor > postgreskey.gpg
+RUN install -o root -g root -m 644 postgreskey.gpg /etc/apt/trusted.gpg.d/
+RUN rm postgreskey.gpg
 
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list
 
-RUN apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
+#RUN apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
 RUN apt-get update -qq && apt-get install -y build-essential default-libmysqlclient-dev libsnappy-dev libpq-dev cron libicu-dev git yarn postgresql-client-12
 
 RUN wget https://github.com/Medium/phantomjs/releases/download/v2.1.1/$PHANTOM_JS.tar.bz2
