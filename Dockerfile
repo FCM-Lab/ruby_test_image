@@ -15,12 +15,8 @@ RUN rm yarnkey.gpg
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # Install node
-RUN apt-get install -y nodejs
-
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor > postgreskey.gpg
-RUN install -o root -g root -m 644 postgreskey.gpg /etc/apt/trusted.gpg.d/
-RUN rm postgreskey.gpg
-
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list
 
 #RUN apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
