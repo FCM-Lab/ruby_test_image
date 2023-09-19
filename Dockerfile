@@ -1,31 +1,24 @@
 FROM ruby:3.1.2
 
-ENV OPENSSL_CONF=/etc/ssl
-ENV PHANTOM_JS=phantomjs-2.1.1-linux-x86_64
-
+# Install node
+# Update local package index
 RUN apt-get update -y
-RUN apt-get install -y wget python3 python3-pip less groff \
-  gnupg2 wget ca-certificates lsb-release software-properties-common
-RUN pip install awscli==1.18.35
+# Install necessary packages for downloading and verifying new repository information
+RUN apt-get install -y ca-certificates curl wget less groff gnupg
+# Create a directory for the new repository's keyring, if it doesn't exist
+RUN mkdir -p /etc/apt/keyrings
+# Download the new repository's GPG key and save it in the keyring directory
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+# Add the new repository's source list with its GPG key for package verification
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor > yarnkey.gpg
-RUN install -o root -g root -m 644 yarnkey.gpg /etc/apt/trusted.gpg.d/
-RUN rm yarnkey.gpg
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-# Install node
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list
-
 #RUN apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
-RUN apt-get update -qq && apt-get install -y build-essential default-libmysqlclient-dev libsnappy-dev libpq-dev cron libicu-dev git yarn postgresql-client-12
-
-RUN wget https://github.com/Medium/phantomjs/releases/download/v2.1.1/$PHANTOM_JS.tar.bz2
-RUN tar xvjf $PHANTOM_JS.tar.bz2
-RUN mv $PHANTOM_JS /usr/local/share
-RUN ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
+RUN apt-get update -qq && apt-get install -y build-essential libsnappy-dev libpq-dev cron libicu-dev git yarn postgresql-client
 
 # install chrome
 RUN apt-get update -y && \
