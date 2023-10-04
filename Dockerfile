@@ -1,4 +1,4 @@
-FROM ruby:3.0.4-buster
+FROM ruby:3.2.2-buster
 
 # Install node
 # Update local package index
