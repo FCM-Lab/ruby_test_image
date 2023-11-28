@@ -1,13 +1,22 @@
 FROM ruby:3.0.4
-MAINTAINER Guillermo Guerrero 'guillermo.guerrero@fr.fcm.travel'
+MAINTAINER FCM Developer 'developer@fr.fcm.travel'
 
-ENV OPENSSL_CONF=/etc/ssl
+# Install node
+# Update local package index
+RUN apt-get update
+# Install necessary packages for downloading and verifying new repository information
+RUN apt-get install -y ca-certificates curl wget
+# Create a directory for the new repository's keyring, if it doesn't exist
+RUN mkdir -p /etc/apt/keyrings
+# Download the new repository's GPG key and save it in the keyring directory
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+# Add the new repository's source list with its GPG key for package verification
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+RUN echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-RUN apt-get update && apt-get install -y wget less groff gnupg
-
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN wget --quiet -O - /tmp/pubkey.gpg  https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN echo "deb https://apt.postgresql.org/pub/repos/apt bullseye-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update -qq && apt-get install -y build-essential default-libmysqlclient-dev libsnappy-dev libpq-dev cron libicu-dev git yarn nodejs postgresql-client
 
