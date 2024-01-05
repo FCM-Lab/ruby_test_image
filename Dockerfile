@@ -1,4 +1,4 @@
-FROM ruby:3.1.2-buster
+FROM ruby:3.3.0
 LABEL maintainer="FCM LAB developer@fr.fcm.travel"
 
 RUN apt-get update && apt-get install -y wget python-pip less groff
