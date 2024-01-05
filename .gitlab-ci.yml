@@ -1,0 +1,18 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_IMAGE_NAME: fcmlab/ruby_test_image
+  TAG: $CI_COMMIT_REF_NAME
+
+before_script:
+  - docker login -u developerfcm -p $DOCKERHUB_PASSWORD
+
+build:
+  stage: build
+  script:
+    - docker build -t $DOCKER_IMAGE_NAME:$tag .
+    - docker push $DOCKER_IMAGE_NAME:$TAG
