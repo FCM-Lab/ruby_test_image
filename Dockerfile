@@ -23,13 +23,5 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 #RUN apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
 RUN apt-get update -qq && apt-get install -y build-essential libsnappy-dev libpq-dev cron libicu-dev git yarn postgresql-client
 
-# install chrome
-RUN apt-get update -y && \
-  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-  dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
-
-# install chromedriver and place it in the path
-RUN apt-get install chromium-driver -y
-RUN mv /usr/bin/chromedriver /usr/local/bin/chromedriver
-
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
