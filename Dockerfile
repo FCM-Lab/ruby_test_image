@@ -1,4 +1,4 @@
-FROM ruby:3.1.2
+FROM ruby:3.2.3
 
 # Install node
 # Update local package index
