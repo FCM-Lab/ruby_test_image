@@ -1,4 +1,4 @@
-FROM ruby:3.2.3
+FROM ruby:3.2.3-bullseye
 
 # Install node
 # Update local package index
